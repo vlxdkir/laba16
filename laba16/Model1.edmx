@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище deliviryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Договоры">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+          </Key>
+          <Property Name="НомерДоговора" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ДатаДоговора" Type="datetime" />
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Коментарий" Type="text" />
+        </EntityType>
+        <EntityType Name="поставлено">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+            <PropertyRef Name="Товар" />
+          </Key>
+          <Property Name="НомерДоговора" Type="int" Nullable="false" />
+          <Property Name="Товар" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Колличество" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="Цена" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Поставщики">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Адрес" Type="text" Nullable="false" />
+          <Property Name="Примечание" Type="text" />
+        </EntityType>
+        <EntityType Name="ФизическоеЛицо">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Фамилия" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Имя" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Отчество" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="НомерИздательства" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ЮридическиеЛица">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Название" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="НалоговыйНомер" Type="varchar" MaxLength="50" />
+          <Property Name="НомерСвидетельстваНДС" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "deliviry.dbo.Contracts_SupplierInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Contracts_SupplierInfo">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+          </Key>
+          <Property Name="НомерДоговора" Type="int" Nullable="false" />
+          <Property Name="ДатаДоговора" Type="datetime" />
+          <Property Name="Название_Фамилия" Type="varchar" MaxLength="50" />
+          <Property Name="Коментарий" Type="text" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "deliviry.dbo.Suppliers_ContactInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Suppliers_ContactInfo">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+            <PropertyRef Name="Адрес" />
+          </Key>
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Название_Фамилия" Type="varchar" MaxLength="152" />
+          <Property Name="Адрес" Type="text" Nullable="false" />
+          <Property Name="Примечание" Type="text" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "deliviry.dbo.View_1" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="View_1">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="НомерДоговора" Type="int" Nullable="false" />
+          <Property Name="ДатаДоговора" Type="datetime" />
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Поставщики" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "deliviry.dbo.View_2" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="View_2">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+            <PropertyRef Name="Адрес" />
+          </Key>
+          <Property Name="КодПоставщика" Type="int" Nullable="false" />
+          <Property Name="Адрес" Type="text" Nullable="false" />
+          <Property Name="Фамилия" Type="varchar" MaxLength="50" />
+          <Property Name="Имя" Type="varchar" MaxLength="50" />
+          <Property Name="Отчество" Type="varchar" MaxLength="50" />
+          <Property Name="Название" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Договоры_Поставщики">
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="1" />
+          <End Role="Договоры" Type="Self.Договоры" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="КодПоставщика" />
+            </Principal>
+            <Dependent Role="Договоры">
+              <PropertyRef Name="КодПоставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Поставлено_Договоры">
+          <End Role="Договоры" Type="Self.Договоры" Multiplicity="1" />
+          <End Role="поставлено" Type="Self.поставлено" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Договоры">
+              <PropertyRef Name="НомерДоговора" />
+            </Principal>
+            <Dependent Role="поставлено">
+              <PropertyRef Name="НомерДоговора" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ФизическоеЛицо_Поставщики">
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="1" />
+          <End Role="ФизическоеЛицо" Type="Self.ФизическоеЛицо" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="КодПоставщика" />
+            </Principal>
+            <Dependent Role="ФизическоеЛицо">
+              <PropertyRef Name="КодПоставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ЮридическиеЛица_Поставщики">
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="1" />
+          <End Role="ЮридическиеЛица" Type="Self.ЮридическиеЛица" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="КодПоставщика" />
+            </Principal>
+            <Dependent Role="ЮридическиеЛица">
+              <PropertyRef Name="КодПоставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище deliviryModelContainer">
+          <EntitySet Name="Договоры" EntityType="Self.Договоры" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="поставлено" EntityType="Self.поставлено" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Поставщики" EntityType="Self.Поставщики" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ФизическоеЛицо" EntityType="Self.ФизическоеЛицо" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ЮридическиеЛица" EntityType="Self.ЮридическиеЛица" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contracts_SupplierInfo" EntityType="Self.Contracts_SupplierInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Contracts_SupplierInfo].[НомерДоговора] AS [НомерДоговора], 
+    [Contracts_SupplierInfo].[ДатаДоговора] AS [ДатаДоговора], 
+    [Contracts_SupplierInfo].[Название_Фамилия] AS [Название_Фамилия], 
+    [Contracts_SupplierInfo].[Коментарий] AS [Коментарий]
+    FROM [dbo].[Contracts_SupplierInfo] AS [Contracts_SupplierInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Suppliers_ContactInfo" EntityType="Self.Suppliers_ContactInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Suppliers_ContactInfo].[КодПоставщика] AS [КодПоставщика], 
+    [Suppliers_ContactInfo].[Название_Фамилия] AS [Название_Фамилия], 
+    [Suppliers_ContactInfo].[Адрес] AS [Адрес], 
+    [Suppliers_ContactInfo].[Примечание] AS [Примечание]
+    FROM [dbo].[Suppliers_ContactInfo] AS [Suppliers_ContactInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_1" EntityType="Self.View_1" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_1].[НомерДоговора] AS [НомерДоговора], 
+    [View_1].[ДатаДоговора] AS [ДатаДоговора], 
+    [View_1].[КодПоставщика] AS [КодПоставщика], 
+    [View_1].[Поставщики] AS [Поставщики]
+    FROM [dbo].[View_1] AS [View_1]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_2" EntityType="Self.View_2" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_2].[КодПоставщика] AS [КодПоставщика], 
+    [View_2].[Адрес] AS [Адрес], 
+    [View_2].[Фамилия] AS [Фамилия], 
+    [View_2].[Имя] AS [Имя], 
+    [View_2].[Отчество] AS [Отчество], 
+    [View_2].[Название] AS [Название]
+    FROM [dbo].[View_2] AS [View_2]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Договоры_Поставщики" Association="Self.FK_Договоры_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="Договоры" EntitySet="Договоры" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Поставлено_Договоры" Association="Self.FK_Поставлено_Договоры">
+            <End Role="Договоры" EntitySet="Договоры" />
+            <End Role="поставлено" EntitySet="поставлено" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ФизическоеЛицо_Поставщики" Association="Self.FK_ФизическоеЛицо_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="ФизическоеЛицо" EntitySet="ФизическоеЛицо" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ЮридическиеЛица_Поставщики" Association="Self.FK_ЮридическиеЛица_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="ЮридическиеЛица" EntitySet="ЮридическиеЛица" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="deliviryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="deliviryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Договоры" EntityType="deliviryModel.Договоры" />
+          <EntitySet Name="поставлено" EntityType="deliviryModel.поставлено" />
+          <EntitySet Name="Поставщики" EntityType="deliviryModel.Поставщики" />
+          <EntitySet Name="ФизическоеЛицо" EntityType="deliviryModel.ФизическоеЛицо" />
+          <EntitySet Name="ЮридическиеЛица" EntityType="deliviryModel.ЮридическиеЛица" />
+          <EntitySet Name="Contracts_SupplierInfo" EntityType="deliviryModel.Contracts_SupplierInfo" />
+          <EntitySet Name="Suppliers_ContactInfo" EntityType="deliviryModel.Suppliers_ContactInfo" />
+          <EntitySet Name="View_1" EntityType="deliviryModel.View_1" />
+          <EntitySet Name="View_2" EntityType="deliviryModel.View_2" />
+          <AssociationSet Name="FK_Договоры_Поставщики" Association="deliviryModel.FK_Договоры_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="Договоры" EntitySet="Договоры" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Поставлено_Договоры" Association="deliviryModel.FK_Поставлено_Договоры">
+            <End Role="Договоры" EntitySet="Договоры" />
+            <End Role="поставлено" EntitySet="поставлено" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ФизическоеЛицо_Поставщики" Association="deliviryModel.FK_ФизическоеЛицо_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="ФизическоеЛицо" EntitySet="ФизическоеЛицо" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ЮридическиеЛица_Поставщики" Association="deliviryModel.FK_ЮридическиеЛица_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="ЮридическиеЛица" EntitySet="ЮридическиеЛица" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Договоры">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+          </Key>
+          <Property Name="НомерДоговора" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ДатаДоговора" Type="DateTime" Precision="3" />
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Коментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Поставщики" Relationship="deliviryModel.FK_Договоры_Поставщики" FromRole="Договоры" ToRole="Поставщики" />
+          <NavigationProperty Name="поставлено" Relationship="deliviryModel.FK_Поставлено_Договоры" FromRole="Договоры" ToRole="поставлено" />
+        </EntityType>
+        <EntityType Name="поставлено">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+            <PropertyRef Name="Товар" />
+          </Key>
+          <Property Name="НомерДоговора" Type="Int32" Nullable="false" />
+          <Property Name="Товар" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Колличество" Type="Decimal" Nullable="false" Precision="5" Scale="0" />
+          <Property Name="Цена" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <NavigationProperty Name="Договоры" Relationship="deliviryModel.FK_Поставлено_Договоры" FromRole="поставлено" ToRole="Договоры" />
+        </EntityType>
+        <EntityType Name="Поставщики">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Адрес" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Примечание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Договоры" Relationship="deliviryModel.FK_Договоры_Поставщики" FromRole="Поставщики" ToRole="Договоры" />
+          <NavigationProperty Name="ФизическоеЛицо" Relationship="deliviryModel.FK_ФизическоеЛицо_Поставщики" FromRole="Поставщики" ToRole="ФизическоеЛицо" />
+          <NavigationProperty Name="ЮридическиеЛица" Relationship="deliviryModel.FK_ЮридическиеЛица_Поставщики" FromRole="Поставщики" ToRole="ЮридическиеЛица" />
+        </EntityType>
+        <EntityType Name="ФизическоеЛицо">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Фамилия" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Имя" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Отчество" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="НомерИздательства" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Поставщики" Relationship="deliviryModel.FK_ФизическоеЛицо_Поставщики" FromRole="ФизическоеЛицо" ToRole="Поставщики" />
+        </EntityType>
+        <EntityType Name="ЮридическиеЛица">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="НалоговыйНомер" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="НомерСвидетельстваНДС" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Поставщики" Relationship="deliviryModel.FK_ЮридическиеЛица_Поставщики" FromRole="ЮридическиеЛица" ToRole="Поставщики" />
+        </EntityType>
+        <EntityType Name="Contracts_SupplierInfo">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+          </Key>
+          <Property Name="НомерДоговора" Type="Int32" Nullable="false" />
+          <Property Name="ДатаДоговора" Type="DateTime" Precision="3" />
+          <Property Name="Название_Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Коментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Suppliers_ContactInfo">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+            <PropertyRef Name="Адрес" />
+          </Key>
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Название_Фамилия" Type="String" MaxLength="152" FixedLength="false" Unicode="false" />
+          <Property Name="Адрес" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Примечание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_1">
+          <Key>
+            <PropertyRef Name="НомерДоговора" />
+            <PropertyRef Name="КодПоставщика" />
+          </Key>
+          <Property Name="НомерДоговора" Type="Int32" Nullable="false" />
+          <Property Name="ДатаДоговора" Type="DateTime" Precision="3" />
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Поставщики" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_2">
+          <Key>
+            <PropertyRef Name="КодПоставщика" />
+            <PropertyRef Name="Адрес" />
+          </Key>
+          <Property Name="КодПоставщика" Type="Int32" Nullable="false" />
+          <Property Name="Адрес" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Договоры_Поставщики">
+          <End Type="deliviryModel.Поставщики" Role="Поставщики" Multiplicity="1" />
+          <End Type="deliviryModel.Договоры" Role="Договоры" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="КодПоставщика" />
+            </Principal>
+            <Dependent Role="Договоры">
+              <PropertyRef Name="КодПоставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Поставлено_Договоры">
+          <End Type="deliviryModel.Договоры" Role="Договоры" Multiplicity="1" />
+          <End Type="deliviryModel.поставлено" Role="поставлено" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Договоры">
+              <PropertyRef Name="НомерДоговора" />
+            </Principal>
+            <Dependent Role="поставлено">
+              <PropertyRef Name="НомерДоговора" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ФизическоеЛицо_Поставщики">
+          <End Type="deliviryModel.Поставщики" Role="Поставщики" Multiplicity="1" />
+          <End Type="deliviryModel.ФизическоеЛицо" Role="ФизическоеЛицо" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="КодПоставщика" />
+            </Principal>
+            <Dependent Role="ФизическоеЛицо">
+              <PropertyRef Name="КодПоставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ЮридическиеЛица_Поставщики">
+          <End Type="deliviryModel.Поставщики" Role="Поставщики" Multiplicity="1" />
+          <End Type="deliviryModel.ЮридическиеЛица" Role="ЮридическиеЛица" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="КодПоставщика" />
+            </Principal>
+            <Dependent Role="ЮридическиеЛица">
+              <PropertyRef Name="КодПоставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище deliviryModelContainer" CdmEntityContainer="deliviryEntities">
+          <EntitySetMapping Name="Договоры">
+            <EntityTypeMapping TypeName="deliviryModel.Договоры">
+              <MappingFragment StoreEntitySet="Договоры">
+                <ScalarProperty Name="Коментарий" ColumnName="Коментарий" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+                <ScalarProperty Name="ДатаДоговора" ColumnName="ДатаДоговора" />
+                <ScalarProperty Name="НомерДоговора" ColumnName="НомерДоговора" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="поставлено">
+            <EntityTypeMapping TypeName="deliviryModel.поставлено">
+              <MappingFragment StoreEntitySet="поставлено">
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Колличество" ColumnName="Колличество" />
+                <ScalarProperty Name="Товар" ColumnName="Товар" />
+                <ScalarProperty Name="НомерДоговора" ColumnName="НомерДоговора" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Поставщики">
+            <EntityTypeMapping TypeName="deliviryModel.Поставщики">
+              <MappingFragment StoreEntitySet="Поставщики">
+                <ScalarProperty Name="Примечание" ColumnName="Примечание" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ФизическоеЛицо">
+            <EntityTypeMapping TypeName="deliviryModel.ФизическоеЛицо">
+              <MappingFragment StoreEntitySet="ФизическоеЛицо">
+                <ScalarProperty Name="НомерИздательства" ColumnName="НомерИздательства" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ЮридическиеЛица">
+            <EntityTypeMapping TypeName="deliviryModel.ЮридическиеЛица">
+              <MappingFragment StoreEntitySet="ЮридическиеЛица">
+                <ScalarProperty Name="НомерСвидетельстваНДС" ColumnName="НомерСвидетельстваНДС" />
+                <ScalarProperty Name="НалоговыйНомер" ColumnName="НалоговыйНомер" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contracts_SupplierInfo">
+            <EntityTypeMapping TypeName="deliviryModel.Contracts_SupplierInfo">
+              <MappingFragment StoreEntitySet="Contracts_SupplierInfo">
+                <ScalarProperty Name="Коментарий" ColumnName="Коментарий" />
+                <ScalarProperty Name="Название_Фамилия" ColumnName="Название_Фамилия" />
+                <ScalarProperty Name="ДатаДоговора" ColumnName="ДатаДоговора" />
+                <ScalarProperty Name="НомерДоговора" ColumnName="НомерДоговора" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers_ContactInfo">
+            <EntityTypeMapping TypeName="deliviryModel.Suppliers_ContactInfo">
+              <MappingFragment StoreEntitySet="Suppliers_ContactInfo">
+                <ScalarProperty Name="Примечание" ColumnName="Примечание" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Название_Фамилия" ColumnName="Название_Фамилия" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_1">
+            <EntityTypeMapping TypeName="deliviryModel.View_1">
+              <MappingFragment StoreEntitySet="View_1">
+                <ScalarProperty Name="Поставщики" ColumnName="Поставщики" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+                <ScalarProperty Name="ДатаДоговора" ColumnName="ДатаДоговора" />
+                <ScalarProperty Name="НомерДоговора" ColumnName="НомерДоговора" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_2">
+            <EntityTypeMapping TypeName="deliviryModel.View_2">
+              <MappingFragment StoreEntitySet="View_2">
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="КодПоставщика" ColumnName="КодПоставщика" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

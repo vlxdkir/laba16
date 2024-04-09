@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aa7cce2ba0b9459e9ef8ce56bedcfce8" Name="Diagram1">
+        <EntityTypeShape EntityType="deliviryModel.Договоры" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="deliviryModel.поставлено" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="deliviryModel.Поставщики" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="deliviryModel.ФизическоеЛицо" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="deliviryModel.ЮридическиеЛица" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="deliviryModel.Contracts_SupplierInfo" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="deliviryModel.Suppliers_ContactInfo" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="deliviryModel.View_1" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="deliviryModel.View_2" Width="1.5" PointX="5.75" PointY="7.75" />
+        <AssociationConnector Association="deliviryModel.FK_Договоры_Поставщики" />
+        <AssociationConnector Association="deliviryModel.FK_Поставлено_Договоры" />
+        <AssociationConnector Association="deliviryModel.FK_ФизическоеЛицо_Поставщики" />
+        <AssociationConnector Association="deliviryModel.FK_ЮридическиеЛица_Поставщики" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

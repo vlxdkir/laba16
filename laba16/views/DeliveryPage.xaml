@@ -1,0 +1,127 @@
+﻿<Page x:Class="laba16.views.DeliveryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:laba16.views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DeliveryPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0">
+            <TabItem Header="Список договоров">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="303*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid BorderThickness="0"  x:Name="DataGridConracts" Background="Transparent" HeadersVisibility="Column" AutoGenerateColumns="False" IsReadOnly="False" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер Договора" Binding="{Binding НомерДоговора}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата Договора"  Binding="{Binding ДатаДоговора}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Поставщик"  Binding="{Binding ИмяПоставщика}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Комментарий" Binding="{Binding Комментарий}" Width="*"></DataGridTextColumn>
+
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="BtnDeleteContract_Click">
+                                            <Image Source="C:\Users\Gigabyte\source\repos\laba16\laba16\images\deletebutton.png" Width="20" Height="20"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Новый договор">
+                <Grid Background="#FFE5E5E5">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="10" Grid.Column="0">
+                            <TextBlock HorizontalAlignment="Left" Text="Номер Договора:" TextWrapping="Wrap" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="one"   Width="174" Height="30"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Дата Договора:" Margin="0 20 0 0" VerticalAlignment="Top" />
+                            <DatePicker Grid.Column="1" HorizontalAlignment="Left"  x:Name="two"  Width="175" Height="30" />
+
+                        </StackPanel>
+                        <StackPanel Margin="10" Grid.Column="1">
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Код Поставщика:" Margin="0 0 0 0" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="three"  Width="175" Height="30"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Комментарий:" Margin="0 20 0 0" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="four"  Width="175" Height="30"/>
+                        </StackPanel>
+                        <Button Click="BtnSaveContract_Click" Width="75" Height="30" Content="Сохранить" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Button Click="BtnEditContract_Click" Width="75" Height="30" Content="Изменить" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="right"/>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Список товаров">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid BorderThickness="0"  x:Name="DataGridDelivery" Background="Transparent" HeadersVisibility="Column" AutoGenerateColumns="False" IsReadOnly="False" Margin="0,0,0,50">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер Договора" Binding="{Binding НомерДоговора}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Товар"  Binding="{Binding Товар}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Количество"  Binding="{Binding Колличество}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Цена}" Width="*"></DataGridTextColumn>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="BtnDeleteDelivery_Click">
+                                            <Image Source="C:\Users\Gigabyte\source\repos\laba16\laba16\images\deletebutton.png" Width="20" Height="20"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Новый товар">
+                <Grid Background="#FFE5E5E5">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="10" Grid.Column="0">
+                            <TextBlock HorizontalAlignment="Left" Text="Номер Договора:" TextWrapping="Wrap" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="one1"   Width="174" Height="30"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Товар:" Margin="0 20 0 0" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="two1"  Width="175" Height="30" />
+
+                        </StackPanel>
+                        <StackPanel Margin="10" Grid.Column="1">
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Количество:" Margin="0 0 0 0" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="thee1"  Width="175" Height="30"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Цена:" Margin="0 20 0 0" VerticalAlignment="Top" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left"  x:Name="four1"  Width="175" Height="30"/>
+                        </StackPanel>
+                        <Button Click="BtnSaveDelivery_Click" Width="150" Height="30" Content="Сохранить" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Label Content="Всего единиц" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+        <TextBox x:Name="EdinicTextBox" Grid.Row="2" VerticalAlignment="Bottom" Margin="0,0,520,5" Width="100"/>
+
+        <Label Content="Сумма" Grid.Row="2" VerticalAlignment="Bottom" Margin="300,0,0,0" HorizontalAlignment="Left" />
+        <TextBox x:Name="SummaTextBox" Grid.Row="2" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="100"/>
+    </Grid>
+
+</Page>
